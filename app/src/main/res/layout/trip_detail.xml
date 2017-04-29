@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/row_color"
+    android:weightSum="3">
+
+    <include layout="@layout/custom_actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.novatoresols.busguru.Activities.HomeActivity" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.1"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_device_90"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.7">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/tofrom"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="3.3"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/startLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_device_20"
+                android:textColor="@android:color/black"
+                android:text="Lahore Punjab Pakistan"/>
+
+            <TextView
+                android:id="@+id/startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_device_15"
+                android:text="March 27 2016, 10:00 AM"/>
+
+            <TextView
+                android:id="@+id/endLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/size_device_20"
+                android:text="Karachi Sindh Pakistan"
+                android:layout_marginTop="@dimen/size_device_10"/>
+
+            <TextView
+                android:id="@+id/endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_device_15"
+                android:text="March 27 2016, 10:00 PM"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_device_80"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/size_device_3"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/book_trip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/book_now"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

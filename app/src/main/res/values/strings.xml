@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BusGuru</string>
+    <string name="no_connec">No Internet Connection</string>
+    <string name="retry">Retry</string>
+    <string name="offline">You are offline please check your internet connection</string>
+    <!--Facebook App Id-->
+    <string name="facebook_app_id">1882363388686862</string>
+    <string name="google_map_api" templateMergeStrategy="preserve" translatable="false">AIzaSyDe3xcvE3OT2cnOT0FSe0AmVTHFVn3JjU0</string>
+
+</resources>

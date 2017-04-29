@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/row_color">
+
+    <LinearLayout
+        android:id="@+id/main_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/busImageView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_device_100"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/bus_guru"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFF"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="2.5"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/size_device_5"
+            android:layout_toRightOf="@+id/busImageView">
+
+            <TextView
+                android:id="@+id/startLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_device_13"
+                android:textColor="@android:color/black"
+                android:text="Lahore Punjab Pakstan"/>
+
+            <TextView
+                android:id="@+id/startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="@dimen/size_device_12"
+                android:text="March 27 2016, 10:00 AM"/>
+
+            <TextView
+                android:id="@+id/endLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_device_13"
+                android:textColor="@android:color/black"
+                android:text="Karachi Sindh Pakstan"
+                android:layout_marginTop="@dimen/size_device_10"/>
+
+            <TextView
+                android:id="@+id/endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="@dimen/size_device_12"
+                android:text="March 27 2016, 10:00 PM"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="1.5">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/totalSeatsLayout">
+
+                <ImageView
+                    android:id="@+id/totalSeats"
+                    android:layout_width="@dimen/size_device_30"
+                    android:layout_height="@dimen/size_device_30"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_launcher"/>
+
+                <TextView
+                    android:id="@+id/total_seats_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total: 50"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/size_device_2"
+                    android:layout_toRightOf="@+id/totalSeats"
+                    android:textSize="@dimen/size_device_13"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/availableSeatsLayout"
+                android:layout_marginTop="@dimen/size_device_5"
+                android:layout_below="@+id/totalSeatsLayout">
+
+                <ImageView
+                    android:id="@+id/availableSeats"
+                    android:layout_width="@dimen/size_device_30"
+                    android:layout_height="@dimen/size_device_30"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_launcher"/>
+
+                <TextView
+                    android:id="@+id/available_seats_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/availableSeats"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/size_device_2"
+                    android:text="Free: 50"
+                    android:textSize="@dimen/size_device_13"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="@dimen/size_device_50"
+                android:layout_height="@dimen/size_device_50"
+                android:layout_below="@+id/availableSeatsLayout"
+                android:layout_marginRight="-12dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/arrowforword"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_below="@+id/main_Layout"
+        android:background="@color/hint_text_color_two"
+        android:id="@+id/divider_line"
+        android:layout_height="@dimen/size_device_2">
+    </View>
+
+</RelativeLayout>

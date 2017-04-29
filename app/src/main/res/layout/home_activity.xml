@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/action_bar">
+
+    <include android:id="@+id/actionBar"
+        layout="@layout/custom_actionbar"/>
+
+    <LinearLayout
+        android:id="@+id/map_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/actionBar"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/real_time_location"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/size_device_13"
+            android:background="@color/button_color"
+            android:text="Real Time Location"/>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/size_device_13"
+            android:layout_marginLeft="@dimen/size_device_3"
+            android:background="@color/button_color"
+            android:textColor="@android:color/white"
+            android:text="Logout"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map_header"
+        android:layout_above="@+id/bus_schedule">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.novatoresols.busguru.Activities.HomeActivity" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bus_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bus Scheduled"
+        android:textSize="@dimen/size_device_15"
+        android:textColor="@android:color/white"
+        android:background="@color/button_color"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

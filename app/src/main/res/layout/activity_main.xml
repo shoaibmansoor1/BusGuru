@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.novatoresols.busguru.Activities.SignIn"
+    android:background="@color/action_bar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/bus_guru_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BUS GURU"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_device_100"
+            android:textSize="@dimen/size_device_40"
+            android:textColor="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/facebookButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_device_50"
+            android:layout_marginLeft="@dimen/size_device_60"
+            android:layout_marginRight="@dimen/size_device_60"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/fbbtn"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
