@@ -14,21 +14,22 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.novatoresols.busguru.Model.Schedule;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.novatoresols.busguru.Model.Bus;
 import com.novatoresols.busguru.R;
 import com.novatoresols.busguru.Utils.AppApiUrls;
-import com.novatoresols.busguru.adapter.ScheduledAdapter;
 import com.novatoresols.busguru.Utils.RecyclerItemClickListener;
 import com.novatoresols.busguru.Utils.SVProgressHUD;
 import com.novatoresols.busguru.Utils.WebRequest;
-import com.novatoresols.busguru.adapter.ScheduledParser;
+import com.novatoresols.busguru.adapter.ScheduledAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Haider-AndroidDevice on 28/03/2017.
@@ -36,11 +37,11 @@ import java.util.List;
 
 public class BusScheduledActivity extends Activity implements RecyclerItemClickListener.OnItemClickListener{
 
-    private List<Schedule> movieList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ScheduledAdapter mAdapter;
     TextView title;
-    List<Schedule> objlist;
+
+    ArrayList<Bus> busArrayList;
     RecyclerView.LayoutManager mLayoutManager;
 
     @Override
@@ -48,21 +49,23 @@ public class BusScheduledActivity extends Activity implements RecyclerItemClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bus_scheduled_layout);
 
-        objlist = new ArrayList<>();
+        busArrayList = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        mAdapter = new ScheduledAdapter(objlist);
+        mAdapter = new ScheduledAdapter(busArrayList);
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
 
-//        prepareScheduledData();
-        CallingDataFromServer(AppApiUrls.busScheduled);
+        CallingDataFromServer();
 
     }
 
-    private void CallingDataFromServer(String url) {
+    private void CallingDataFromServer() {
+
+        final Type listType = new TypeToken<ArrayList<Bus>>(){}.getType();
+        final Gson gson = new Gson();
 
         if (WebRequest.haveNetworkConnection(BusScheduledActivity.this)) {
 
@@ -72,23 +75,22 @@ public class BusScheduledActivity extends Activity implements RecyclerItemClickL
                 @Override
                 public void onSuccess(JSONObject result) {
                     try {
-                        String a = result.getString("success");
 
-                        if (a.equalsIgnoreCase("true")) {
-                            //Hide progress and Enable screen to touch
-                            SVProgressHUD.dismiss(getApplicationContext());
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        SVProgressHUD.dismiss(getApplicationContext());
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
+                        JSONArray buses = result.getJSONArray("buses");
 
-                            JSONArray jsonArray = result.getJSONArray("array");
-                            objlist = ScheduledParser.scheduledRecords(jsonArray);
+                        if (buses.length() > 0){
+
+                            busArrayList = gson.fromJson(buses.toString(),listType);
                             updateNewsFeed();
 
                         }else{
                                 //Hide progress and Enable screen to touch
                                 SVProgressHUD.dismiss(getApplicationContext());
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                Toast.makeText(getApplicationContext(), a + "", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "No Bus Found", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -97,7 +99,7 @@ public class BusScheduledActivity extends Activity implements RecyclerItemClickL
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }
-            }, url, null, null, null, BusScheduledActivity.this);
+            }, AppApiUrls.getBuses, null, null, null, BusScheduledActivity.this);
         } else {
             // Display message in dialog box if you have not internet connection
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -124,7 +126,7 @@ public class BusScheduledActivity extends Activity implements RecyclerItemClickL
 
     private void updateNewsFeed(){
 
-        mAdapter = new ScheduledAdapter(objlist);
+        mAdapter = new ScheduledAdapter(busArrayList);
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }
@@ -144,10 +146,10 @@ public class BusScheduledActivity extends Activity implements RecyclerItemClickL
     @Override
     public void onItemClick(View view, int position) {
 
-        Schedule schedule = objlist.get(position);
+        Bus bus = busArrayList.get(position);
 
         Intent i = new Intent(BusScheduledActivity.this,TripDetail.class);
-        i.putExtra("scheduleObj", schedule);
+        i.putExtra("scheduleObj", bus);
         startActivity(i);
 
     }

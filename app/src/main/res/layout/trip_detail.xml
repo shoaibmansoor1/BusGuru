@@ -88,6 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/size_device_80"
             android:gravity="center"
+            android:orientation="vertical"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/size_device_3"
             android:layout_weight="1">
@@ -97,6 +98,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/book_now"/>
+
+            <Button
+                android:layout_height="wrap_content"
+                android:text="Cancel Booking"
+                android:visibility="invisible"
+                android:id="@+id/btnCancelBooking"
+                android:layout_width="wrap_content"
+                android:background="@color/button_color"
+                android:textColor="@android:color/white"/>
 
         </LinearLayout>
 

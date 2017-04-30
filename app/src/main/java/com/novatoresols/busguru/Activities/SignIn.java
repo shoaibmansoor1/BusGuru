@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -18,8 +19,9 @@ import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.novatoresols.busguru.Utils.InternetConnectivity;
 import com.novatoresols.busguru.R;
+import com.novatoresols.busguru.Utils.AppApiUrls;
+import com.novatoresols.busguru.Utils.InternetConnectivity;
 import com.novatoresols.busguru.Utils.SVProgressHUD;
 import com.novatoresols.busguru.Utils.WebRequest;
 
@@ -83,35 +85,14 @@ public class SignIn extends Activity {
                             fbemail=object.getString("email");
                             //1.
                             Profile profile = Profile.getCurrentProfile();
-//                            String id = profile.getId();
-//                            String link = profile.getLinkUri().toString();
-//                            Log.i("Link",link);
+
                             if (Profile.getCurrentProfile()!=null) {
                                 Log.i("Login", "ProfilePic" + Profile.getCurrentProfile().getProfilePictureUri(200, 200));
                                 Uri profilePicUri = Profile.getCurrentProfile().getProfilePictureUri(200, 200);
                                 fbprofilePic = profilePicUri.toString();
                             }
 
-                            SharedPreferences shf = getSharedPreferences("SignupCredentials", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = shf.edit();
-
-                            editor.putString("fbemail",fbemail);
-
-                            editor.commit();
-                            editor.apply();
-
-//                            signupWithFacebook(AppApiUrls.AppBaseUrl+AppApiUrls.LoginWithFacebook);
-
-
-                            //Move into signupWithFacebook()
-                            Toast.makeText(getApplicationContext(),"Welcome " +fbFirstName ,Toast.LENGTH_SHORT).show();
-
-                            //Going to next activity
-                            if (InternetConnectivity.haveNetworkConnection(SignIn.this)){
-                                Intent i = new Intent(SignIn.this, HomeActivity.class);
-                                startActivity(i);
-                                SignIn.this.finish();
-                            }
+                            SignUpNetworkCall(fbFirstName,fbLastname,fbemail);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -137,17 +118,12 @@ public class SignIn extends Activity {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //necessary add this for facebook callback
-        callbackmanager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void signupWithFacebook(String url) {
+    private void SignUpNetworkCall(final String fbFirstName, String fbLastname, final String fbemail) {
 
         JSONObject signupObject=new JSONObject();
         try {
+            signupObject.put("first_name",fbFirstName);
+            signupObject.put("last_name",fbLastname);
             signupObject.put("email",fbemail);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -159,17 +135,38 @@ public class SignIn extends Activity {
             public void onSuccess(JSONObject result) {
                 try {
                     SVProgressHUD.dismiss(getApplicationContext());
-                    String a = result.getString("status");
-                    if (a.equalsIgnoreCase("Success")) {
+                    String userId = result.getString("user_id");
 
-                        JSONObject responseObject=result.getJSONObject("response");
+                    SharedPreferences shf = getSharedPreferences("SignupCredentials", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shf.edit();
 
+                    editor.putString("fbemail",fbemail);
+                    editor.putString("userId",userId);
+                    editor.putString("name",fbFirstName);
 
+                    editor.commit();
+                    editor.apply();
+
+                    Toast.makeText(getApplicationContext(),"Welcome " +fbFirstName ,Toast.LENGTH_SHORT).show();
+
+                    if (InternetConnectivity.haveNetworkConnection(SignIn.this)){
+                        Intent i = new Intent(SignIn.this, HomeActivity.class);
+                        startActivity(i);
+                        SignIn.this.finish();
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, url, signupObject,null,null,SignIn.this);
+        }, AppApiUrls.signup, signupObject,null,null,SignIn.this);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //necessary add this for facebook callback
+        callbackmanager.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

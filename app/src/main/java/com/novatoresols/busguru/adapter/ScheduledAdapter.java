@@ -10,14 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.novatoresols.busguru.Model.Schedule;
+import com.novatoresols.busguru.Model.Bus;
 import com.novatoresols.busguru.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ScheduledAdapter extends RecyclerView.Adapter<ScheduledAdapter.MyViewHolder> {
 
-    private List<Schedule> ScheduledAdapter;
+    private ArrayList<Bus> busAdapter;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
@@ -37,8 +37,8 @@ public class ScheduledAdapter extends RecyclerView.Adapter<ScheduledAdapter.MyVi
     }
 
 
-    public ScheduledAdapter(List<Schedule> ScheduledAdapter) {
-        this.ScheduledAdapter = ScheduledAdapter;
+    public ScheduledAdapter(ArrayList<Bus> BusAdapter) {
+        this.busAdapter = BusAdapter;
     }
 
     @Override
@@ -51,17 +51,17 @@ public class ScheduledAdapter extends RecyclerView.Adapter<ScheduledAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Schedule obj = ScheduledAdapter.get(position);
-        holder.startLocation.setText(obj.getStartLocation());
-        holder.startTime.setText(obj.getStartTime());
-        holder.endLocation.setText(obj.getEndLocation());
-        holder.endTime.setText(obj.getEndTime());
-        holder.totalSeats.setText("Total:"+ obj.getTotalSeats());
-        holder.availableSeats.setText("Free:"+obj.getAvailableSeats());
+        Bus obj = busAdapter.get(position);
+        holder.startLocation.setText(obj.getOrigin());
+        holder.startTime.setText(obj.getStart_time());
+        holder.endLocation.setText(obj.getDestination());
+//        holder.endTime.setText(obj.get());
+        holder.totalSeats.setText("Total:"+ obj.getTotal_seats());
+        holder.availableSeats.setText("Free:"+obj.getRemaining_seats());
     }
 
     @Override
     public int getItemCount() {
-        return ScheduledAdapter.size();
+        return busAdapter.size();
     }
 }

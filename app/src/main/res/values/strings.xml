@@ -4,7 +4,8 @@
     <string name="retry">Retry</string>
     <string name="offline">You are offline please check your internet connection</string>
     <!--Facebook App Id-->
-    <string name="facebook_app_id">1882363388686862</string>
-    <string name="google_map_api" templateMergeStrategy="preserve" translatable="false">AIzaSyDe3xcvE3OT2cnOT0FSe0AmVTHFVn3JjU0</string>
+    <string name="facebook_app_id">1713647311995830</string>
+    <string name="fb_login_protocol_scheme">fb1713647311995830</string>
+    <string name="google_map_api" templateMergeStrategy="preserve" translatable="false">AIzaSyCYNTm8EZogeXSvOpTTPGJ-gE0RJeOSpRc</string>
 
 </resources>

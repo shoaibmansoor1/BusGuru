@@ -5,8 +5,8 @@
     android:background="@color/action_bar">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:src="@drawable/bus_guru"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"

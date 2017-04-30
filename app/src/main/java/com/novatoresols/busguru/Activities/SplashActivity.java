@@ -1,29 +1,25 @@
 package com.novatoresols.busguru.Activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.novatoresols.busguru.R;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by macbookpor on 22/08/2016.
@@ -64,12 +60,18 @@ public class SplashActivity extends Activity {
                 @Override
                 public void run() {
 
+                    if (ContextCompat.checkSelfPermission(SplashActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                    }else {
+
+
                     if (TextUtils.isEmpty(fbEmail)){
                         startActivity(new Intent(SplashActivity.this, SignIn.class));
                     }else{
                         startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                     }
-                    SplashActivity.this.finish();
+                        SplashActivity.this.finish();
+                    }
                 }
             }, SPLASH_DISPLAY_LENGTH);
 
@@ -131,5 +133,24 @@ public class SplashActivity extends Activity {
             }, 3 * 500);
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay!
+                    callActivity();
+                } else {
+                    // permission denied, boo!
+                    callActivity();
+                }
+                return;
+            }
+        }
     }
 }
