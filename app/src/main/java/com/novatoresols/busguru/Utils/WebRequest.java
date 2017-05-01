@@ -125,7 +125,7 @@ public class WebRequest extends Activity {
                         } else if (error instanceof NoConnectionError) {
                             name = "NoConnectionError";
                         } else if (error instanceof ServerError) {
-                            name = "Server Error";
+                            name = "Function cannot be performed.";
                         } else if (error instanceof NetworkError) {
                             name = "NetworkError";
                         } else if (error instanceof ParseError) {
@@ -167,7 +167,7 @@ public class WebRequest extends Activity {
         {
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-            alertDialogBuilder.setTitle("You are in trouble,Please check your intetnet connection");
+            alertDialogBuilder.setTitle("Error");
             alertDialogBuilder.setMessage(toastString);
             alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
@@ -177,14 +177,7 @@ public class WebRequest extends Activity {
             });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-//        // Must call show() prior to fetching views
-//        TextView messageView = (TextView)alertDialog.findViewById(android.R.id.message);
-//        messageView.setGravity(Gravity.LEFT);
-//
-//        TextView titleView = (TextView)alertDialog.findViewById(activity.getResources().getIdentifier("alertTitle", "id", "android"));
-//        if (titleView != null) {
-//            titleView.setGravity(Gravity.LEFT);
-//        }
+
         }
 
 

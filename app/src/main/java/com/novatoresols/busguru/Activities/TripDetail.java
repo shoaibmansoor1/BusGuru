@@ -191,8 +191,7 @@ public class TripDetail extends FragmentActivity implements OnMapReadyCallback, 
                 if (bus != null){
 
                     if (bus.getRemaining_seats() != "0"){
-                        Toast.makeText(getApplicationContext(),"Booked",Toast.LENGTH_SHORT).show();
-                        //Server Call with Trip id and email params
+
                         bookTrip();
                     }
                 }

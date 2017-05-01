@@ -74,7 +74,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void fetchBusesLocation() {
-
+        
         final Type listType = new TypeToken<ArrayList<Bus>>() {
         }.getType();
         final Gson gson = new Gson();
@@ -138,15 +138,23 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
 
     private void updateLocations() {
 
+        MarkerOptions markerOptions;
+        Marker marker;
+
         for (int i = 0; i < busArrayList.size(); i++) {
-            mMap.clear();
             double lat = Double.parseDouble(busArrayList.get(i).getLatitude());
             double lng = Double.parseDouble(busArrayList.get(i).getLongitude());
-            Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_guru)).title("Towards " + busArrayList.get(i).getDestination()));
-            if (i == busArrayList.size() - 1){
 
+            markerOptions = new MarkerOptions().position(new LatLng(lat,
+                    lng)
+            ).title("Towards "+ busArrayList.get(i).getDestination());
+
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_guru));
+             marker = mMap.addMarker(markerOptions);
+
+            if (i == busArrayList.size() - 1){
                 CameraPosition cameraPosition = new CameraPosition.Builder().
-                        target(marker.getPosition()).tilt(50).zoom(13).bearing(0).build();
+                        target(marker.getPosition()).tilt(50).zoom(12).bearing(0).build();
 
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
