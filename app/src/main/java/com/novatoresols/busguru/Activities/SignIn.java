@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.novatoresols.busguru.R;
@@ -53,9 +51,6 @@ public class SignIn extends Activity {
             @Override
             public void onClick(View view) {
 
-                //it took 2 days remember it always
-                LoginManager.getInstance().logOut();
-
                 if (InternetConnectivity.haveNetworkConnection(SignIn.this)){
                     onFblogin();
                 }
@@ -83,14 +78,6 @@ public class SignIn extends Activity {
                             fbFirstName=object.getString("first_name");
                             fbLastname=object.getString("last_name");
                             fbemail=object.getString("email");
-                            //1.
-                            Profile profile = Profile.getCurrentProfile();
-
-                            if (Profile.getCurrentProfile()!=null) {
-                                Log.i("Login", "ProfilePic" + Profile.getCurrentProfile().getProfilePictureUri(200, 200));
-                                Uri profilePicUri = Profile.getCurrentProfile().getProfilePictureUri(200, 200);
-                                fbprofilePic = profilePicUri.toString();
-                            }
 
                             SignUpNetworkCall(fbFirstName,fbLastname,fbemail);
 

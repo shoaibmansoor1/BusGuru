@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -74,7 +75,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void fetchBusesLocation() {
-        
+
         final Type listType = new TypeToken<ArrayList<Bus>>() {
         }.getType();
         final Gson gson = new Gson();
@@ -197,6 +198,9 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 //Saving signin credientials
                 shf = getSharedPreferences("SignupCredentials", MODE_PRIVATE);
                 shf.edit().clear().commit();
+
+                LoginManager.getInstance().logOut();
+
                 Toast.makeText(getApplicationContext(),"You are logout", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeActivity.this,SignIn.class));
                 finish();
